@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5001/api/auth';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001';
+const API_URL = `${API_BASE_URL}/api/auth`;
 
 function AuthForm() {
   const [isLogin, setIsLogin] = useState(true);
