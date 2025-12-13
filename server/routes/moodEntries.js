@@ -3,6 +3,9 @@ const MoodEntry= require('../models/MoodEntry');
 const authMiddleware= require('../middleware/auth');
 
 //Add authmiddleware to all routes
+
+// Security: authMiddleware is inserted before the main handler. This ensures that the handler code only 
+// runs after the user's token has been validated and the req.userId has been set.
 router.get('/', authMiddleware, async(req, res)=>{
     try{
         const entries= await MoodEntry.find({userId: req.userId}).sort( { date: -1 });
@@ -13,7 +16,7 @@ router.get('/', authMiddleware, async(req, res)=>{
     }
 });
 
-
+ 
 //post a new mood entry
 router.post('/', authMiddleware,async(req, res)=>{
     const newEntry = new MoodEntry({
